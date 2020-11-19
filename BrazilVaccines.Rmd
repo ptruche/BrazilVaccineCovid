@@ -192,7 +192,7 @@ df$Southeastadj<-df$Southeast.vaccines/(df$Southeast.pop/1000)
 df$Southadj<-df$South.vaccines/(df$South.pop/1000)
 df$Midwestadj<-df$Midwest.vaccines/(df$Midwest.pop/1000)
 
-dataforlong2<-df[,c(1,15:19)]
+dataforlong2<-df[,c(1,20:24)]
 
 dataforlong2<-dataforlong2 %>% 
   dplyr::rename( North = Northadj, Northeast = Northeastadj, Southeast =Southeastadj , South =Southadj, Midwest = Midwestadj)
