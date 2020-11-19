@@ -57,7 +57,7 @@ ggplot(df, aes(x=Date, y=Total.vaccines)) +
    scale_y_continuous(limits = c(3000000, 18000000)) +
   scale_color_fivethirtyeight()+
   theme(axis.text.x=element_text(angle=60, hjust=1)) +
-  scale_x_date(labels = date_format("%b-%Y"), date_breaks = "3 month",limit=c(as.Date("2015-01-01"),as.Date("2020-02-11")))
+  scale_x_date(labels = date_format("%b-%Y"), date_breaks = "3 month",limit=c(as.Date("2015-01-01"),as.Date("2020-9-1")))
 ```
 
 <br><br><br><br>
@@ -83,7 +83,7 @@ ggplot(dflong, aes(x=Month, y=value, group=State, color=State)) +
   theme_fivethirtyeight()+
   # scale_y_continuous(limits = c(0, 3000000)) +
   theme(axis.text.x=element_text(angle=60, hjust=1)) +
-  scale_x_date(labels = date_format("%b-%Y"), date_breaks = "3 month",limit=c(as.Date("2015-01-01"),as.Date("2020-02-11")))
+  scale_x_date(labels = date_format("%b-%Y"), date_breaks = "3 month",limit=c(as.Date("2015-01-01"),as.Date("2020-09-11")))
 ```
 <br><br><br><br>
 
@@ -116,7 +116,7 @@ nationaltotal<-qic(Total2,
     ylab  = 'Distributed Vaccines (per 1000 population)',
     xlab  = '',
     nint=30,
-     x.format = "%b-%Y", main  = "Total Vaccinations Brazil: 2015-2020",sub ="Break at March 2020", breaks=62)
+     x.format = "%b-%Y", main  = "Total Vaccinations Brazil: 2015-2020",sub ="Break at March 2020", freeze =63)
 
 qic(df$Total2,
     chart = 'mr',
@@ -124,6 +124,62 @@ qic(df$Total2,
     ylab  = 'Vaccines (Per 1000 pop)',
     xlab  = 'Month')
 ```
+
+We can examine each region individual with respect to the trend. Jan 2015 thorugh March 2020 are used to calculate the standard errors of the control model
+```{r, echo=FALSE}
+df$North2<-df$North.vaccines/(df$North.pop/1000)
+df$Northeast<-df$Northeast.vaccines/(df$Northeast.pop/1000)
+df$Southeast2<-df$Southeast.vaccines/(df$Southeast.pop/1000)
+df$South2<-df$South.vaccines/(df$South.pop/1000)
+df$Midwest2<-df$Midwest.vaccines/(df$Midwest.pop/1000)
+
+
+nationaltotal<-qic(North2,
+    x     = Date,
+    data  = df,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 population)',
+    xlab  = '',
+    nint=30,
+     x.format = "%b-%Y", main  = "North Region: Total Vaccinations Brazil: 2015-2020",sub ="Break at March 2020", freeze =63)
+
+nationaltotal<-qic(Northeast,
+    x     = Date,
+    data  = df,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 population)',
+    xlab  = '',
+    nint=30,
+     x.format = "%b-%Y", main  = "Northeast Region: Total Vaccinations Brazil: 2015-2020",sub ="Break at March 2020", freeze =63)
+
+nationaltotal<-qic(Southeast2,
+    x     = Date,
+    data  = df,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 population)',
+    xlab  = '',
+    nint=30,
+     x.format = "%b-%Y", main  = "Southeast Region: Total Vaccinations Brazil: 2015-2020",sub ="Break at March 2020", freeze =63)
+
+nationaltotal<-qic(South2,
+    x     = Date,
+    data  = df,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 population)',
+    xlab  = '',
+    nint=30,
+     x.format = "%b-%Y", main  = "South Region: Total Vaccinations Brazil: 2015-2020",sub ="Break at March 2020", freeze =63)
+
+nationaltotal<-qic(Midwest2,
+    x     = Date,
+    data  = df,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 population)',
+    xlab  = '',
+    nint=30,
+     x.format = "%b-%Y", main  = "Midwest Region: Total Vaccinations Brazil: 2015-2020",sub ="Break at March 2020", freeze =63)
+```
+
 
 <br><br><br><br>
 Below we use an xbar chart in order to incorperate vaccine rates per 1000 people by state.  
