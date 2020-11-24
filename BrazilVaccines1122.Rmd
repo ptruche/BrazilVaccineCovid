@@ -662,18 +662,6 @@ qic(adj,
     main = "Tríplice Viral (SCR)",
     nint=52,
      x.format = "%b-%Y",sub ="")
-
-infantdf$adj<-infantdf$infanttotal/(infantdf$pop)
-
-qic(adj,
-    x     = Date,
-    data  = infantdf,
-    chart = 'i',
-    ylab  = 'Distributed Vaccines (per 1000 births)',
-    xlab  = '',
-    main = "Total infant vaccines",
-    nint=52,
-     x.format = "%b-%Y",sub ="")
 ```
 
 
