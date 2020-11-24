@@ -197,7 +197,7 @@ qic(value,
 
 ```
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 columns<-rownames(cbind(sort(colSums(All_data[,-c(1,2,3)]), T)[1:5]))
 
 lessthanoneyearsubselected<-as.data.frame(All_data[,c("Date", "pop" ,columns)])
@@ -218,7 +218,7 @@ ggplot(lessthanoneyearsubselected2, aes(x=Date, y=value, group=variable,color=va
 ```
 
 We can examine totals and individuals by age group
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 #lessthanoneyear 
 columns<-rownames(cbind(sort(colSums(lessthanoneyear[,-c(1,2,3)]), T)[1:5]))
 
@@ -254,7 +254,7 @@ qic(Total2,
      x.format = "%b-%Y",sub ="Break at March 2020", breaks=63)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 #df1to4 
 title<-"Top 5 Vaccines age 1-4"
 columns<-rownames(cbind(sort(colSums(df1to4[,-c(1,2,3)]), T)[1:5]))
@@ -292,7 +292,7 @@ qic(Total2,
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 #df5to10 
 title<-"Top 5 Vaccines age 5-10"
 columns<-rownames(cbind(sort(colSums(df5to10[,-c(1,2,3)]), T)[1:5]))
@@ -330,7 +330,7 @@ qic(Total2,
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 #df10to14 
 title<-"Top 5 Vaccines age 10-14"
 columns<-rownames(cbind(sort(colSums(df10to14[,-c(1,2,3)]), T)[1:5]))
@@ -368,7 +368,7 @@ qic(Total2,
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 #df15to29 
 title<-"Top 5 Vaccines age 15-29"
 columns<-rownames(cbind(sort(colSums(df15to29[,-c(1,2,3)]), T)[1:5]))
@@ -406,7 +406,7 @@ qic(Total2,
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 #df30to49 
 title<-"Top 5 Vaccines age 39-49"
 columns<-rownames(cbind(sort(colSums(df30to49[,-c(1,2,3)]), T)[1:5]))
@@ -444,7 +444,7 @@ qic(Total2,
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 #df50to64 
 title<-"Top 5 Vaccines age 50-64"
 columns<-rownames(cbind(sort(colSums(df50to64[,-c(1,2,3)]), T)[1:5]))
@@ -482,7 +482,7 @@ qic(Total2,
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 #df65plus 
 title<-"Top 5 Vaccines age 65+"
 columns<-rownames(cbind(sort(colSums(df65plus[,-c(1,2,3)]), T)[1:5]))
@@ -519,5 +519,161 @@ qic(Total2,
      x.format = "%b-%Y",sub ="Break at March 2020", breaks=63)
 ```
 
+Here we examine the number of vaccines needed before age 1
+```{r, echo=FALSE, warning=FALSE}
+infantdf<-lessthanoneyear %>% select("Date","pop",
+"BCG (BCG)",
+"Hepatite B (HB)",
+"Pentavalente (DTP+HB+Hib) (PENTA)",
+"Poliomielite inativada (VIP)",
+"Pneumocócica 10valente",
+"Rotavírus pentavalente",
+"Meningocócica Conjugada - C (MncC)",
+"Influenza (INF)",
+"Febre Amarela (FA)",
+"Tríplice Viral (SCR)")
+
+infantdf$infanttotal<-rowSums(infantdf[,2:12])
+
+infantdf<-infantdf[!(infantdf$Date=="2020-11-01"),]
+
+infantdf<-infantdf[-c(1:12),]
+```
+
+
+```{r, echo=FALSE, warning=FALSE}
+#qic chart for each
+infantdf$adj<-infantdf$`BCG (BCG)`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "BCG (BCG)",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Hepatite B (HB)`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Hepatite B (HB)",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Pentavalente (DTP+HB+Hib) (PENTA)`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Pentavalente (DTP+HB+Hib) (PENTA)",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Poliomielite inativada (VIP)`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Poliomielite inativada (VIP)",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Pneumocócica 10valente`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Pneumocócica 10valente",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Rotavírus pentavalente`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Rotavírus pentavalente",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Meningocócica Conjugada - C (MncC)`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Meningocócica Conjugada - C (MncC)",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Influenza (INF)`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Influenza (INF)",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Febre Amarela (FA)`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Febre Amarela (FA)",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$`Tríplice Viral (SCR)`/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Tríplice Viral (SCR)",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+
+infantdf$adj<-infantdf$infanttotal/(infantdf$pop)
+
+qic(adj,
+    x     = Date,
+    data  = infantdf,
+    chart = 'i',
+    ylab  = 'Distributed Vaccines (per 1000 births)',
+    xlab  = '',
+    main = "Total infant vaccines",
+    nint=52,
+     x.format = "%b-%Y",sub ="")
+```
 
 
